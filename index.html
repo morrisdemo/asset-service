@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Asset & Service Tracker</title>
+  <script
+    id="sap-ui-bootstrap"
+    src="https://sdk.openui5.org/resources/sap-ui-core.js"
+    data-sap-ui-theme="sap_horizon"
+    data-sap-ui-libs="sap.m"
+    data-sap-ui-async="true"
+    data-sap-ui-compatVersion="edge"
+  ></script>
+  <style>
+    .cardGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .sapMPanel {
+      height: 100%;
+    }
+  </style>
+</head>
+<body class="sapUiBody" id="content">
+  <div id="cardContainer" class="cardGrid"></div>
+  <script>
+    sap.ui.getCore().attachInit(function () {
+      const createCard = (title, content) => new sap.m.Panel({
+        headerText: title,
+        expandable: false,
+        content: [content],
+        class: "sapUiResponsiveMargin"
+      });
+
+      const assetContent = new sap.m.VBox({
+        items: [
+          new sap.m.ObjectListItem({ title: "Electric Meter", number: "#E112233", attributes: [
+            new sap.m.ObjectAttribute({ text: "Installed: 04/15/2021" }),
+            new sap.m.ObjectAttribute({ text: "Status: Active" })
+          ], type: "Active" }),
+          new sap.m.ObjectListItem({ title: "Smart Thermostat", number: "#T998877", attributes: [
+            new sap.m.ObjectAttribute({ text: "Installed: 06/12/2020" }),
+            new sap.m.ObjectAttribute({ text: "Status: Offline" })
+          ], type: "Inactive" })
+        ]
+      });
+
+      const serviceHistory = new sap.m.VBox({
+        items: [
+          new sap.m.ObjectListItem({
+            title: "Meter Read",
+            number: "08/15/2025",
+            attributes: [new sap.m.ObjectAttribute({ text: "Technician: M. Torres" })],
+            type: "Active"
+          }),
+          new sap.m.ObjectListItem({
+            title: "Equipment Install",
+            number: "07/12/2025",
+            attributes: [new sap.m.ObjectAttribute({ text: "Technician: J. Greene" })],
+            type: "Inactive"
+          })
+        ]
+      });
+
+      const outageContent = new sap.m.VBox({
+        items: [
+          new sap.m.ObjectStatus({ text: "Planned Outage - 10/18/2025", state: "Warning", icon: "sap-icon://lateness" }),
+          new sap.m.ObjectStatus({ text: "Unplanned Outage - 09/01/2025", state: "Error", icon: "sap-icon://alert" })
+        ]
+      });
+
+      const slaContent = new sap.m.VBox({
+        items: [
+          new sap.m.ObjectNumber({ number: 97, unit: "% Response Time Met", state: "Success" }),
+          new sap.m.ObjectNumber({ number: 89, unit: "% Restoration SLA Met", state: "Warning" })
+        ]
+      });
+
+      const fieldNotes = new sap.m.VBox({
+        items: [
+          new sap.m.FeedListItem({
+            sender: "R. Williams",
+            text: "Customer's access panel was locked, reschedule needed.",
+            timestamp: "2 days ago"
+          }),
+          new sap.m.FeedListItem({
+            sender: "K. Liu",
+            text: "Battery replaced on outdoor unit. Left door hanger.",
+            timestamp: "1 week ago"
+          })
+        ]
+      });
+
+      const cards = [
+        createCard("1. Customer Assets", assetContent),
+        createCard("2. Service History", serviceHistory),
+        createCard("3. Recent & Planned Outages", outageContent),
+        createCard("4. SLA Performance", slaContent),
+        createCard("5. Field Technician Notes", fieldNotes)
+      ];
+
+      cards.forEach(card => card.placeAt("cardContainer"));
+    });
+  </script>
+</body>
+</html>
