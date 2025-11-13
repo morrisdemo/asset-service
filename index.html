@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -106,4 +106,101 @@
     });
   </script>
 </body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer Asset & Service Tracker</title>
+<script
+id="sap-ui-bootstrap"
+src="https://sdk.openui5.org/resources/sap-ui-core.js"
+data-sap-ui-theme="sap_horizon"
+data-sap-ui-libs="sap.m"
+data-sap-ui-async="true"
+data-sap-ui-compatVersion="edge"
+></script>
+<style>
+.card-container {
+display: flex;
+flex-wrap: wrap;
+gap: 1rem;
+margin-top: 1rem;
+}
+.card-single {
+flex: 1 1 100%;
+}
+.card-half {
+flex: 1 1 calc(50% - 1rem);
+min-height: 200px;
+box-sizing: border-box;
+}
+</style>
+</head>
+<body class="sapUiBody" id="content">
+<script>
+sap.ui.getCore().attachInit(function () {
+let selectedDeviceKey = "electric";
+
+
+const electricDevice = {
+title: "Electric Meter",
+serial: "#E112233",
+install: "04/15/2021",
+status: "Active",
+category: "Electric",
+registers: 4,
+uom: "kWh",
+interval: true,
+intervalLength: "15 min"
+};
+
+
+const waterDevice = {
+title: "Water Meter",
+serial: "#W445566",
+install: "06/12/2020",
+status: "Inactive",
+category: "Water",
+registers: 2,
+uom: "GAL",
+interval: false,
+intervalLength: "-"
+};
+
+
+const serviceHistoryPanel = new sap.m.Panel({ headerText: "Service History" });
+const outagePanel = new sap.m.Panel({ headerText: "Outage History" });
+const slaPanel = new sap.m.Panel({ headerText: "SLA Performance" });
+const notesPanel = new sap.m.Panel({ headerText: "Field Notes" });
+const orderListPanel = new sap.m.Panel({ headerText: "Service Order History" });
+
+
+const serviceOrders = [
+{
+id: "904161",
+type: "USRV",
+status: "CRTD MANC NMAT PRC",
+sysStatus: "PEND",
+priority: "C",
+startDate: "11/12/2025",
+startTime: "08:15 AM",
+endDate: "11/12/2025",
+endTime: "10:30 AM",
+description: "Outage Reported"
+},
+{
+id: "904160",
+type: "USRV",
+status: "CRTD MANC NMAT PRC",
+sysStatus: "PEND",
+priority: "2",
+startDate: "09/12/2025",
+startTime: "01:00 PM",
+endDate: "09/12/2025",
+endTime: "03:00 PM",
+description: "Meter Glass Broken"
+},
 </html>
